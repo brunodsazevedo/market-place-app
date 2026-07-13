@@ -648,7 +648,7 @@
     "@typescript-eslint/utils" "^8.55.0"
     ts-pattern "^5.9.0"
 
-"@eslint/compat@^2.0.5":
+"@eslint/compat@^2.0.5", "@eslint/compat@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@eslint/compat/-/compat-2.1.0.tgz#8c66110f95cf0fdd864b76ae4d534042dea7bb7f"
   integrity sha512-LgaSCymEpw7tF53xvDw9SNsraPb1IBHxpdABIOM0hW8UAlP8znrjYtuxfR58FSJ3L9BhwD+FaPRFQpZq84Nh6g==
@@ -5082,10 +5082,10 @@ react-native-screens@^4.25.2:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-worklets@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/react-native-worklets/-/react-native-worklets-0.10.2.tgz#c59e6314d2da4a69f20d66f58bb964ee2275328a"
-  integrity sha512-LX27ejYI8veeDp59Z3rjo2pYyPa9euzSH8GUlem7cnNqfsDtGum8PQpkbzrqhLsWH0CjdeHR7p3sncCyYbwaVw==
+react-native-worklets@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-worklets/-/react-native-worklets-0.10.0.tgz#e2e8f8e1ba0eccc4e69f3a4e75894ecab4ba19b0"
+  integrity sha512-JhE6IxDf6iabC0qu3+TAKA4v9RlluXmoIngPQX7/QUByf75lfrsHZ6/dQhyjEWnp1EEQiwzz8Cpew140ZcewDw==
   dependencies:
     "@babel/plugin-transform-arrow-functions" "^7.27.1"
     "@babel/plugin-transform-class-properties" "^7.28.6"

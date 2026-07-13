@@ -8,7 +8,15 @@ const queryClient = new QueryClient()
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="login" />
+
+        <Stack.Screen name="register" />
+      </Stack>
     </QueryClientProvider>
   )
 }
