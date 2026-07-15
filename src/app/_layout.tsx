@@ -14,8 +14,8 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="login" />
-
         <Stack.Screen name="register" />
+        <Stack.Screen name="(private)" />
       </Stack>
     </QueryClientProvider>
   )
