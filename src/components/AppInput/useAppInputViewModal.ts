@@ -1,0 +1,77 @@
+import { colors } from '@/styles/colors'
+import { useRef, useState } from 'react'
+import { BlurEvent, FocusEvent, TextInput } from 'react-native'
+
+interface AppInputViewModalProps {
+  isError?: boolean
+  isDisabled?: boolean
+  secureTextEntry?: boolean
+  value?: string
+  onFocus?: (event: FocusEvent) => void
+  onBlur?: (event: BlurEvent) => void
+  mask?: (text: string) => string | void
+  onChangeText?: (text: string) => string | void
+}
+
+export const useAppInputViewModal = ({
+  isError,
+  isDisabled,
+  value,
+  secureTextEntry = false,
+  onFocus,
+  onBlur,
+  mask,
+  onChangeText,
+}: AppInputViewModalProps) => {
+  const [showPassword, setShowPassword] = useState(secureTextEntry)
+  const [isFocused, setIsFocused] = useState(false)
+
+  const inputRef = useRef<TextInput>(null)
+
+  const handlePasswordToggle = () => {
+    setShowPassword((prev) => !prev)
+  }
+
+  const handleWrapperPress = () => {
+    inputRef.current?.focus()
+  }
+
+  const handleFocus = (event: FocusEvent) => {
+    setIsFocused(true)
+    onFocus?.(event)
+  }
+
+  const handleBlur = (event: BlurEvent) => {
+    setIsFocused(false)
+    onBlur?.(event)
+  }
+
+  const getIconColor = () => {
+    if (isError) return colors.danger
+
+    if (isFocused) return colors['purple-base']
+
+    if (value) return colors['purple-base']
+
+    return colors.gray[200]
+  }
+
+  const handleTextChange = (text: string) => {
+    if (mask) {
+      onChangeText?.(mask(text) || '')
+    } else {
+      onChangeText?.(text)
+    }
+  }
+
+  return {
+    showPassword,
+    isFocused,
+    getIconColor,
+    handleBlur,
+    handleFocus,
+    handleWrapperPress,
+    handlePasswordToggle,
+    handleTextChange,
+  }
+}
