@@ -1,12 +1,20 @@
 import { Text, TouchableOpacity, View } from 'react-native'
+
+import { AppInputController } from '@/shared/components/AppInputController'
+import { AuthFormHeader } from '@/shared/components/AuthFormHeader'
+
 import { useRegisterViewModel } from './useRegister.viewModel'
-import { AppInputController } from '@/components/AppInputController'
 
 type Props = ReturnType<typeof useRegisterViewModel>
 
 export function RegisterView({ onSubmit, control }: Props) {
   return (
     <View className="flex-1 items-center justify-center">
+      <AuthFormHeader
+        title="Crie sua conta"
+        subtitle="Informe seus dados pessoais e de acesso"
+      />
+
       <AppInputController
         control={control}
         name="email"
