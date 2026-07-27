@@ -1,8 +1,10 @@
-import { ScrollView, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
+import { router } from 'expo-router'
 
 import { AppInputController } from '@/shared/components/AppInputController'
 import { AuthFormHeader } from '@/shared/components/AuthFormHeader'
 import { KeyboardContainer } from '@/shared/components/KeyboardContainer'
+import { AppButton } from '@/shared/components/AppButton'
 
 import { useRegisterViewModel } from './useRegister.viewModel'
 
@@ -61,9 +63,19 @@ export function RegisterView({ onSubmit, control }: Props) {
           secureTextEntry
         />
 
-        <TouchableOpacity onPress={onSubmit}>
-          <Text>Register</Text>
-        </TouchableOpacity>
+        <AppButton className="mt-6" onPress={onSubmit}>
+          Registar
+        </AppButton>
+
+        <View className="mt-16">
+          <Text className="text-base mb-6 text-gray-300">
+            Já tem uma conta?
+          </Text>
+
+          <AppButton variant="outlined" onPress={() => router.push('/login')}>
+            Login
+          </AppButton>
+        </View>
       </ScrollView>
     </KeyboardContainer>
   )
