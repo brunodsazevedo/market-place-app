@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, Text, TouchableOpacity } from 'react-native'
 
 import { AppInputController } from '@/shared/components/AppInputController'
 import { AuthFormHeader } from '@/shared/components/AuthFormHeader'
@@ -22,13 +22,7 @@ export function RegisterView({ onSubmit, control }: Props) {
           name="name"
           leftIcon="person-outline"
           label="NOME"
-        />
-
-        <AppInputController
-          control={control}
-          name="email"
-          leftIcon="mail-outline"
-          label="E-MAIL"
+          placeholder="Seu nome completo"
         />
 
         <AppInputController
@@ -36,6 +30,17 @@ export function RegisterView({ onSubmit, control }: Props) {
           name="phone"
           leftIcon="call-outline"
           label="TELEFONE"
+          placeholder="(00) 00000-0000"
+        />
+
+        <Text className="text-base mt-6 font-bold text-gray-500">Acesso</Text>
+
+        <AppInputController
+          control={control}
+          name="email"
+          leftIcon="mail-outline"
+          label="E-MAIL"
+          placeholder="mail@exemple.com.br"
         />
 
         <AppInputController
@@ -43,6 +48,7 @@ export function RegisterView({ onSubmit, control }: Props) {
           name="password"
           leftIcon="lock-closed-outline"
           label="SENHA"
+          placeholder="Sua senha"
           secureTextEntry
         />
 
@@ -51,6 +57,7 @@ export function RegisterView({ onSubmit, control }: Props) {
           name="confirmPassword"
           leftIcon="lock-closed-outline"
           label="CONFIRMAR SENHA"
+          placeholder="Confirme a sua senha"
           secureTextEntry
         />
 
