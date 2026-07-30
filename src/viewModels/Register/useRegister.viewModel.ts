@@ -6,10 +6,33 @@ import { useRegisterMutation } from '@/shared/queries/auth/use-register.mutation
 import { useUserStore } from '@/shared/store/user-store'
 
 import { RegisterFormData, registerScheme } from './register.scheme'
+import { useAppModal } from '@/shared/hooks/useAppModal'
 
 export function useRegisterViewModel() {
   const userRegisterMutation = useRegisterMutation()
   const { setSession } = useUserStore()
+  const modals = useAppModal()
+
+  const handleSelectAvatar = () => {
+    modals.showSelection({
+      title: 'Selecionar foto',
+      message: 'Escolha uma opção:',
+      options: [
+        {
+          text: 'Galeria',
+          icon: 'images',
+          variant: 'primary',
+          onPress: () => {},
+        },
+        {
+          text: 'Camera',
+          icon: 'camera',
+          variant: 'primary',
+          onPress: () => {},
+        },
+      ],
+    })
+  }
 
   const {
     control,
@@ -27,7 +50,13 @@ export function useRegisterViewModel() {
   })
 
   const onSubmit = handleSubmit(async (userData) => {
-    const { confirmPassword, ...registerData } = userData
+    const registerData = {
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      phone: userData.phone,
+    }
+
     const mutationResponse =
       await userRegisterMutation.mutateAsync(registerData)
     setSession({
@@ -40,7 +69,7 @@ export function useRegisterViewModel() {
   return {
     control,
     errors,
-    handleSubmit,
+    handleSelectAvatar,
     onSubmit,
   }
 }

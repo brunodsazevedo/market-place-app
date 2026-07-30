@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { router } from 'expo-router'
 
 import { AppInputController } from '@/shared/components/AppInputController'
@@ -7,10 +7,11 @@ import { KeyboardContainer } from '@/shared/components/KeyboardContainer'
 import { AppButton } from '@/shared/components/AppButton'
 
 import { useRegisterViewModel } from './useRegister.viewModel'
+import Ionicons from '@react-native-vector-icons/ionicons'
 
 type Props = ReturnType<typeof useRegisterViewModel>
 
-export function RegisterView({ onSubmit, control }: Props) {
+export function RegisterView({ onSubmit, control, handleSelectAvatar }: Props) {
   return (
     <KeyboardContainer>
       <ScrollView className="flex-1 px-[40px]">
@@ -18,6 +19,10 @@ export function RegisterView({ onSubmit, control }: Props) {
           title="Crie sua conta"
           subtitle="Informe seus dados pessoais e de acesso"
         />
+
+        <TouchableOpacity onPress={handleSelectAvatar}>
+          <Ionicons name="cloud-upload-outline" size={32} />
+        </TouchableOpacity>
 
         <AppInputController
           control={control}
