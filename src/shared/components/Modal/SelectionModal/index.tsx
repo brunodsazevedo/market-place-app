@@ -1,8 +1,10 @@
-import { Text, TouchableOpacity, View } from 'react-native'
-
-import { SelectionOptions } from '@/shared/hooks/useAppModal'
 import { FC } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 import Ionicons from '@react-native-vector-icons/ionicons'
+import clsx from 'clsx'
+
+import { SelectionOptions, SelectionVariant } from '@/shared/hooks/useAppModal'
+import { colors } from '@/styles/colors'
 
 export interface SelectionModalProps {
   title: string
@@ -15,21 +17,39 @@ export const SelectionModal: FC<SelectionModalProps> = ({
   title,
   message,
 }) => {
+  const getButtonClass = (variant: SelectionVariant) =>
+    clsx(
+      'w-full py-3 px-4 rounded-lg items-center flex-row justify-center mb-2',
+      {
+        'bg-danger': variant === 'danger',
+        'bg-blue-dark': variant === 'secondary',
+        'bg-purple-base': variant === 'primary',
+      },
+    )
+
   return (
     <View className="bg-white rounded-xl shadow-2xl w-[85%] mx-auto max-w-sm p-6">
-      <Text>{title}</Text>
+      <View className="items-center">
+        <Text className="text-lg font-bold text-gray-900 mb-3">{title}</Text>
 
-      {message && <Text>{message}</Text>}
+        {message && (
+          <Text className="text-base text-gray-600 mb-6 leading-6">
+            {message}
+          </Text>
+        )}
+      </View>
 
-      <View>
+      <View className="gap-3">
         {options.map((option, index) => (
           <TouchableOpacity
             key={index}
-            className="w-full py-3 px-4 rounded-lg items-center flex-row justify-center mb-2"
+            className={getButtonClass(option.variant ?? 'primary')}
             onPress={option.onPress}
           >
-            {option.icon && <Ionicons name={option.icon} size={20} />}
-            <Text>{option.text}</Text>
+            {option.icon && (
+              <Ionicons name={option.icon} size={20} color={colors.white} />
+            )}
+            <Text className="font-semibold text-white ml-2">{option.text}</Text>
           </TouchableOpacity>
         ))}
       </View>

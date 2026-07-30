@@ -7,10 +7,12 @@ import {
   SelectionModalProps,
 } from '../components/Modal/SelectionModal'
 
+export type SelectionVariant = 'primary' | 'secondary' | 'danger'
+
 export interface SelectionOptions {
   text: string
   icon?: IoniconsIconName
-  variant?: 'primary' | 'secondary' | 'danger'
+  variant?: SelectionVariant
   onPress: () => void
 }
 
