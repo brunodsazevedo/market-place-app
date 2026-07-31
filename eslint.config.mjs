@@ -9,6 +9,11 @@ const gitignorePath = path.resolve(
 )
 
 export default [
-  includeIgnoreFile(gitignorePath),
   ...reactConfig,
+  includeIgnoreFile(gitignorePath),
+  {
+    rules: {
+      'no-console': 'off',
+    },
+  },
 ]

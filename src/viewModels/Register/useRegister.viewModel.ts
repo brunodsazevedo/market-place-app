@@ -7,6 +7,7 @@ import { useUserStore } from '@/shared/store/user-store'
 
 import { useAppModal } from '@/shared/hooks/useAppModal'
 import { useCamera } from '@/shared/hooks/useCamera'
+import { useGallery } from '@/shared/hooks/useGallery'
 
 import { RegisterFormData, registerScheme } from './register.scheme'
 
@@ -15,6 +16,7 @@ export function useRegisterViewModel() {
   const { setSession } = useUserStore()
   const modals = useAppModal()
   const { openCamera } = useCamera({})
+  const { openGallery } = useGallery({})
 
   const handleSelectAvatar = () => {
     modals.showSelection({
@@ -25,10 +27,13 @@ export function useRegisterViewModel() {
           text: 'Galeria',
           icon: 'images',
           variant: 'primary',
-          onPress: () => {},
+          onPress: async () => {
+            const imageUri = await openGallery()
+            console.log(imageUri)
+          },
         },
         {
-          text: 'Camera',
+          text: 'Câmera',
           icon: 'camera',
           variant: 'primary',
           onPress: openCamera,
