@@ -5,41 +5,23 @@ import { useRegisterMutation } from '@/shared/queries/auth/use-register.mutation
 
 import { useUserStore } from '@/shared/store/user-store'
 
-import { useAppModal } from '@/shared/hooks/useAppModal'
-import { useCamera } from '@/shared/hooks/useCamera'
-import { useGallery } from '@/shared/hooks/useGallery'
+import { useImage } from '@/shared/hooks/useImage'
 
 import { RegisterFormData, registerScheme } from './register.scheme'
+import { Alert } from 'react-native'
+import { useState } from 'react'
 
 export function useRegisterViewModel() {
+  const [avatarUri, setAvatarUri] = useState<string | null>(null)
+
   const userRegisterMutation = useRegisterMutation()
   const { setSession } = useUserStore()
-  const modals = useAppModal()
-  const { openCamera } = useCamera({})
-  const { openGallery } = useGallery({})
+  const { handleSelectImage } = useImage({
+    callback: setAvatarUri,
+  })
 
   const handleSelectAvatar = () => {
-    modals.showSelection({
-      title: 'Selecionar foto',
-      message: 'Escolha uma opção:',
-      options: [
-        {
-          text: 'Galeria',
-          icon: 'images',
-          variant: 'primary',
-          onPress: async () => {
-            const imageUri = await openGallery()
-            console.log(imageUri)
-          },
-        },
-        {
-          text: 'Câmera',
-          icon: 'camera',
-          variant: 'primary',
-          onPress: openCamera,
-        },
-      ],
-    })
+    handleSelectImage()
   }
 
   const {
