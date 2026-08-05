@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Alert } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -8,8 +10,6 @@ import { useUserStore } from '@/shared/store/user-store'
 import { useImage } from '@/shared/hooks/useImage'
 
 import { RegisterFormData, registerScheme } from './register.scheme'
-import { Alert } from 'react-native'
-import { useState } from 'react'
 
 export function useRegisterViewModel() {
   const [avatarUri, setAvatarUri] = useState<string | null>(null)
