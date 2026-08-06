@@ -12,6 +12,12 @@ export default [
   ...reactConfig,
   includeIgnoreFile(gitignorePath),
   {
+    languageOptions: {
+      globals: {
+        FormData: 'readonly',
+        Blob: 'readonly',
+      },
+    },
     rules: {
       'no-console': 'off',
     },

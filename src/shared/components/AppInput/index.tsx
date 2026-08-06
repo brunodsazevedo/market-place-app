@@ -24,10 +24,8 @@ export interface AppInputProps extends TextInputProps, AppInputVariantsProps {
 export const AppInput: FC<AppInputProps> = ({
   label,
   leftIcon,
-  rightIcon,
   containerClassName,
   value,
-  isError,
   secureTextEntry = false,
   isDisabled,
   error,
@@ -42,12 +40,10 @@ export const AppInput: FC<AppInputProps> = ({
     handleBlur,
     handleFocus,
     handlePasswordToggle,
-    handleWrapperPress,
     showPassword,
     handleTextChange,
     isFocused,
   } = useAppInputViewModal({
-    error,
     isError: !!error,
     onBlur,
     onFocus,

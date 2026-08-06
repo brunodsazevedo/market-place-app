@@ -1,7 +1,7 @@
 export interface RegisterHttpParams {
   name: string
   email: string
-  avatarUrl?: string
+  avatarUri?: string
   phone: string
   password: string
 }

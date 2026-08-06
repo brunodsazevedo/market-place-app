@@ -9,6 +9,7 @@ import { useUserStore } from '@/shared/store/user-store'
 import { useImage } from '@/shared/hooks/useImage'
 
 import { RegisterFormData, registerScheme } from './register.scheme'
+import { CameraType } from 'expo-image-picker'
 
 export function useRegisterViewModel() {
   const [avatarUri, setAvatarUri] = useState<string | null>(null)
@@ -17,6 +18,7 @@ export function useRegisterViewModel() {
   const { setSession } = useUserStore()
   const { handleSelectImage } = useImage({
     callback: setAvatarUri,
+    cameraType: CameraType.front,
   })
 
   const handleSelectAvatar = () => {
@@ -44,6 +46,7 @@ export function useRegisterViewModel() {
       email: userData.email,
       password: userData.password,
       phone: userData.phone,
+      avatarUri: avatarUri || undefined,
     }
 
     const mutationResponse =
@@ -57,6 +60,7 @@ export function useRegisterViewModel() {
 
   return {
     control,
+    avatarUri,
     errors,
     handleSelectAvatar,
     onSubmit,

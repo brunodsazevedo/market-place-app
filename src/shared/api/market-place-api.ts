@@ -1,5 +1,6 @@
 import { Platform } from 'react-native'
 import axios, { AxiosInstance } from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const getBaseURL = () => {
   return Platform.select({
@@ -8,7 +9,7 @@ const getBaseURL = () => {
   })
 }
 
-const baseURL = getBaseURL()
+export const baseURL = getBaseURL()
 export class MarketPLaceApiClient {
   private instance: AxiosInstance
   private isRefreshing: boolean = false
@@ -17,10 +18,39 @@ export class MarketPLaceApiClient {
     this.instance = axios.create({
       baseURL,
     })
+
+    this.setupInterceptors()
   }
 
   getInstance() {
     return this.instance
+  }
+
+  private setupInterceptors() {
+    this.instance.interceptors.request.use(
+      async (config) => {
+        const userData = await AsyncStorage.getItem('maketplace-auth')
+
+        console.log('userData', userData)
+
+        if (userData) {
+          const {
+            state: { token },
+          } = JSON.parse(userData)
+
+          console.log(token)
+
+          if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`
+          }
+        }
+
+        return config
+      },
+      (error) => {
+        return Promise.reject(error)
+      },
+    )
   }
 }
 

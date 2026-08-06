@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { router } from 'expo-router'
 
 import { AppInputController } from '@/shared/components/AppInputController'
@@ -11,7 +11,12 @@ import Ionicons from '@react-native-vector-icons/ionicons'
 
 type Props = ReturnType<typeof useRegisterViewModel>
 
-export function RegisterView({ onSubmit, control, handleSelectAvatar }: Props) {
+export function RegisterView({
+  onSubmit,
+  control,
+  avatarUri,
+  handleSelectAvatar,
+}: Props) {
   return (
     <KeyboardContainer>
       <ScrollView className="flex-1 px-[40px]">
@@ -20,8 +25,20 @@ export function RegisterView({ onSubmit, control, handleSelectAvatar }: Props) {
           subtitle="Informe seus dados pessoais e de acesso"
         />
 
-        <TouchableOpacity onPress={handleSelectAvatar}>
-          <Ionicons name="cloud-upload-outline" size={32} />
+        <TouchableOpacity
+          className="w-[120px] h-[120px] rounded-[12px] items-center justify-center bg-shape self-center mb-8"
+          onPress={handleSelectAvatar}
+        >
+          {avatarUri ? (
+            <Image
+              alt="Avatar"
+              source={{ uri: avatarUri }}
+              resizeMode="cover"
+              className="w-full h-full rounded-[12px]"
+            />
+          ) : (
+            <Ionicons name="cloud-upload-outline" size={32} />
+          )}
         </TouchableOpacity>
 
         <AppInputController
@@ -47,6 +64,9 @@ export function RegisterView({ onSubmit, control, handleSelectAvatar }: Props) {
           name="email"
           leftIcon="mail-outline"
           label="E-MAIL"
+          autoCapitalize="none"
+          autoComplete="email"
+          keyboardType="email-address"
           placeholder="mail@exemple.com.br"
         />
 
