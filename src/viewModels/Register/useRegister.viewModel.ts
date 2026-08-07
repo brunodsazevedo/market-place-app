@@ -4,8 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useRegisterMutation } from '@/shared/queries/auth/use-register.mutation'
 
-import { useUserStore } from '@/shared/store/user-store'
-
 import { useImage } from '@/shared/hooks/useImage'
 
 import { RegisterFormData, registerScheme } from './register.scheme'
@@ -14,12 +12,12 @@ import { CameraType } from 'expo-image-picker'
 export function useRegisterViewModel() {
   const [avatarUri, setAvatarUri] = useState<string | null>(null)
 
-  const userRegisterMutation = useRegisterMutation()
-  const { setSession } = useUserStore()
   const { handleSelectImage } = useImage({
     callback: setAvatarUri,
     cameraType: CameraType.front,
   })
+
+  const userRegisterMutation = useRegisterMutation()
 
   const handleSelectAvatar = () => {
     handleSelectImage()
@@ -49,16 +47,11 @@ export function useRegisterViewModel() {
       avatarUri: avatarUri || undefined,
     }
 
-    const mutationResponse =
-      await userRegisterMutation.mutateAsync(registerData)
-    setSession({
-      user: mutationResponse.user,
-      token: mutationResponse.token,
-      refreshToken: mutationResponse.refreshToken,
-    })
+    await userRegisterMutation.mutateAsync(registerData)
   })
 
   return {
+    isLoading: userRegisterMutation.isPending,
     control,
     avatarUri,
     errors,

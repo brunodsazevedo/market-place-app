@@ -23,6 +23,7 @@ export interface UserStore {
   setSession: (sessionData: SetSessionParams) => void
   logout: () => void
   updateTokens: (updateTokensData: UpdateTokensParams) => void
+  updateUser: (updatedUserData: Partial<UserInterface>) => void
 }
 
 export const useUserStore = create<UserStore>()(
@@ -39,6 +40,11 @@ export const useUserStore = create<UserStore>()(
       updateTokens: (updateTokensData: UpdateTokensParams) => {
         set({ ...updateTokensData })
       },
+
+      updateUser: (updatedUserData) =>
+        set((state) => ({
+          user: state.user ? { ...state.user, ...updatedUserData } : null,
+        })),
     }),
     {
       name: 'maketplace-auth',

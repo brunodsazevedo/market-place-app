@@ -1,5 +1,6 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { router } from 'expo-router'
+import Ionicons from '@react-native-vector-icons/ionicons'
 
 import { AppInputController } from '@/shared/components/AppInputController'
 import { AuthFormHeader } from '@/shared/components/AuthFormHeader'
@@ -7,7 +8,6 @@ import { KeyboardContainer } from '@/shared/components/KeyboardContainer'
 import { AppButton } from '@/shared/components/AppButton'
 
 import { useRegisterViewModel } from './useRegister.viewModel'
-import Ionicons from '@react-native-vector-icons/ionicons'
 
 type Props = ReturnType<typeof useRegisterViewModel>
 
@@ -16,6 +16,7 @@ export function RegisterView({
   control,
   avatarUri,
   handleSelectAvatar,
+  isLoading,
 }: Props) {
   return (
     <KeyboardContainer>
@@ -88,7 +89,7 @@ export function RegisterView({
           secureTextEntry
         />
 
-        <AppButton className="mt-6" onPress={onSubmit}>
+        <AppButton className="mt-6" isLoading={isLoading} onPress={onSubmit}>
           Registar
         </AppButton>
 

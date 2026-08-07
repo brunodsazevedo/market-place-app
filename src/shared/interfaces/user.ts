@@ -2,7 +2,7 @@ export interface UserInterface {
   id: number
   name: string
   email: string
-  avatarUrl: string
+  avatar: string
   phone: string
   createdAt: string
 }
