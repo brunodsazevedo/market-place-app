@@ -1,23 +1,29 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { register } from '@/shared/services/auth.service'
 import { RegisterHttpParams } from '@/shared/interfaces/http/register'
-import { useUserStore } from '@/shared/store/user-store'
-import { baseURL } from '@/shared/api/market-place-api'
 
-export const useRegisterMutation = () => {
+import { register } from '@/shared/services/auth.service'
+
+import { useUserStore } from '@/shared/store/user-store'
+
+interface UseRegisterMutationParams {
+  onSuccess?: () => void
+}
+
+export const useRegisterMutation = ({
+  onSuccess,
+}: UseRegisterMutationParams = {}) => {
   const { setSession } = useUserStore()
 
   const mutation = useMutation({
     mutationFn: (userData: RegisterHttpParams) => register(userData),
     onSuccess: (response) => {
-      const avatar = `${baseURL}/images/${response.user.avatar}`
-
       setSession({
-        token: response.token,
         refreshToken: response.refreshToken,
-        user: { ...response.user, avatar },
+        token: response.token,
+        user: response.user,
       })
+      onSuccess?.()
     },
     onError: (error) => {
       console.log(error)
